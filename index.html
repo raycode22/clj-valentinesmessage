@@ -565,7 +565,7 @@
 
             <!-- Buttons -->
             <div class="button-container">
-                <button class="yes-btn" id="yesBtn">Yes 💖</button>
+                <button class="yes-btn" id="yesBtn">Wala ka choice say YES 😂</button>
                 <button class="no-btn" id="noBtn">No 😢</button>
             </div>
 
@@ -590,7 +590,7 @@
     <!-- ===== MUSIC PLAYER MODAL ===== -->
     <div class="music-player-modal" id="musicPlayerModal">
         <div class="music-player-content">
-            <div class="music-player-title">🎵 Our Love Song</div>
+            <div class="music-player-title">🎵 Love song for this years valentines</div>
             <div id="musicPlayerContainer"></div>
             <button class="music-close-btn" id="musicPlayerClose">Close</button>
         </div>
@@ -609,12 +609,12 @@
 
     <script>
         // ===== CUSTOMIZE YOUR MESSAGE HERE =====
-        const loverName = "Your Love";
-        const mainMessage = "Will you be my Valentine? 💕";
-        const yesResponse = "Yay! I love you forever ❤️";
-        const heartfeltMessage = "Dear Love,\n\nThank you for being the light of my life. Every moment with you feels like a dream come true. Your smile brightens my darkest days, and your love gives me strength to face anything.\n\nI cherish every conversation, every laugh, and every quiet moment we share together. You make me believe in love again, and I'm so grateful for your presence in my life.\n\nHappy Valentine's Day to the one who makes my heart skip a beat.\n\nForever yours, 💕";
-        const photoUrl = "https://via.placeholder.com/200/FFB3D9/FF6B9D?text=Our+Photo"; // Replace with image URL
-        const musicUrl = "https://www.youtube.com/embed/3tmd-ClpJxA"; // Replace with YouTube embed link or audio URL
+        const loverName = "Josel Cris na love na love ni Christian Ray";
+        const mainMessage = "Will you always be my Valentine? 💕";
+        const yesResponse = "Naks naman nag yes! Labyu my favourite person ❤️";
+        const heartfeltMessage = "Dear Josel my love,\n\nThank you for being the light of my life. Every moment with you feels like a dream come true. Your smile brightens my darkest days, and your love gives me strength to face anything.\n\nI cherish every conversation, every laugh, and every quiet moment we share together. I'm so grateful for your presence in my life.\n\nHappy Valentine's Day to the one who makes my heart tugudugs hahaha.\n\nForever yours sayong sayo padlock labay ang susi pakaon sa shark, 💕";
+        const photoUrl = "./20240603_114705.jpg"; // Replace with image URL
+        const musicUrl = "./Buksan Mo - Willie Revillame (Full Funk Original Version)  Lyric Video.mp3"; // Replace with your local audio file path (e.g., "./music.mp3")
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
@@ -727,7 +727,7 @@
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'heart-particle';
-                particle.textContent = '💕';
+                particle.textContent = '';
                 document.body.appendChild(particle);
 
                 const angle = (i / particleCount) * Math.PI * 2;
@@ -795,22 +795,15 @@
         function initializeMusicPlayer() {
             const container = document.getElementById('musicPlayerContainer');
             
-            // Check if URL is a YouTube link
-            if (musicUrl.includes('youtube') || musicUrl.includes('youtu.be')) {
-                // Create iframe for YouTube
-                const iframe = document.createElement('iframe');
-                iframe.src = musicUrl + "?autoplay=0&controls=1";
-                iframe.allow = "autoplay";
-                iframe.title = "Love Song";
-                container.appendChild(iframe);
-            } else {
-                // Create audio player for direct audio URLs
-                const audio = document.createElement('audio');
-                audio.controls = true;
-                audio.src = musicUrl;
-                audio.style.width = '100%';
-                container.appendChild(audio);
-            }
+            // Create audio player for local audio files
+            const audio = document.createElement('audio');
+            audio.id = 'mainAudioPlayer';
+            audio.controls = true;
+            audio.autoplay = true;
+            audio.src = musicUrl;
+            audio.style.width = '100%';
+            audio.style.outline = 'none';
+            container.appendChild(audio);
         }
 
         function toggleMusicPlayer() {
@@ -823,10 +816,12 @@
 
         function attemptAutoplayMusic() {
             // Try to play music (may be blocked by browser autoplay policy)
-            const audioElement = document.querySelector('#musicPlayerContainer audio');
-            if (audioElement) {
+            const audioElement = document.getElementById('mainAudioPlayer');
+            if (audioElement && audioElement.readyState > 0) {
+                // Audio is loaded, try to play
                 audioElement.play().catch(() => {
-                    // Autoplay was blocked, that's okay - user can click button to play
+                    // Autoplay was blocked by browser - user needs to interact first
+                    // Audio will still have autoplay attribute for when user interacts
                 });
             }
         }
